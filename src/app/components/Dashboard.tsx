@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react';
 import { FaPlus, FaMoneyBill, FaShoppingBag, FaUser } from 'react-icons/fa';
 import AddTransactionModal from './AddTransactionModal';
 import AddDebtModal from './AddDebtModal';
+import EditTransactionModal from './EditTransactionModal';
+import EditDebtModal from './EditDebtModal';
 import Menubar from './Menubar';
 
 interface Transaction {
@@ -25,9 +27,13 @@ interface Debt {
 export default function Dashboard() {
   const [isTransactionModalOpen, setIsTransactionModalOpen] = useState(false);
   const [isDebtModalOpen, setIsDebtModalOpen] = useState(false);
+  const [isEditTransactionModalOpen, setIsEditTransactionModalOpen] = useState(false);
+  const [isEditDebtModalOpen, setIsEditDebtModalOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [debts, setDebts] = useState<Debt[]>([]);
+  const [editTransaction] = useState<Transaction | null>(null);
+  const [editDebt] = useState<Debt | null>(null);
 
   // Load data from localStorage on mount
   useEffect(() => {
@@ -73,6 +79,40 @@ export default function Dashboard() {
     setDebts((prev) => [...prev, debt]);
   };
 
+  const handleEditTransaction = (
+    id: string,
+    type: 'earning' | 'expense',
+    amount: number,
+    description: string
+  ) => {
+    setTransactions((prev) =>
+      prev.map((t) =>
+        t.id === id ? { ...t, type, amount, description, date: new Date().toISOString() } : t
+      )
+    );
+  };
+
+  const handleDeleteTransaction = (id: string) => {
+    setTransactions((prev) => prev.filter((t) => t.id !== id));
+  };
+
+  const handleEditDebt = (
+    id: string,
+    person: string,
+    amount: number,
+    isOwedToUser: boolean
+  ) => {
+    setDebts((prev) =>
+      prev.map((d) =>
+        d.id === id ? { ...d, person, amount, isOwedToUser, date: new Date().toISOString() } : d
+      )
+    );
+  };
+
+  const handleDeleteDebt = (id: string) => {
+    setDebts((prev) => prev.filter((d) => d.id !== id));
+  };
+
   const todayEarnings = transactions
     .filter((t) => t.type === 'earning')
     .reduce((sum, t) => sum + t.amount, 0);
@@ -98,7 +138,8 @@ export default function Dashboard() {
     <div className="min-h-screen bg-gray-100 flex flex-col">
       <Menubar isOpen={isMenuOpen} toggleMenu={() => setIsMenuOpen(!isMenuOpen)} />
       <div className="flex-1 flex flex-col items-center justify-center p-4">
-        <div className="w-full max-w-sm bg-white rounded-xl shadow-lg p-6 transform transition-all duration-300 hover:scale-105">
+
+        <div className="w-full max-w-xl bg-white rounded-xl shadow-lg p-4 transform transition-all duration-300 hover:scale-105">
           <h1 className="text-3xl font-bold text-gray-800 text-center mb-4">
             Daily Hisab
           </h1>
@@ -173,6 +214,20 @@ export default function Dashboard() {
           <AddDebtModal
             onClose={() => setIsDebtModalOpen(false)}
             onAdd={handleAddDebt}
+          />
+        )}
+        {isEditTransactionModalOpen && editTransaction && (
+          <EditTransactionModal
+            transaction={editTransaction}
+            onClose={() => setIsEditTransactionModalOpen(false)}
+            onEdit={handleEditTransaction}
+          />
+        )}
+        {isEditDebtModalOpen && editDebt && (
+          <EditDebtModal
+            debt={editDebt}
+            onClose={() => setIsEditDebtModalOpen(false)}
+            onEdit={handleEditDebt}
           />
         )}
       </div>
