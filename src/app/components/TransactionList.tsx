@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { FaMoneyBill, FaShoppingBag } from 'react-icons/fa';
+import { FaMoneyBill, FaShoppingBag, FaEdit, FaTrash } from 'react-icons/fa';
 
 interface Transaction {
   id: string;
@@ -13,9 +13,11 @@ interface Transaction {
 
 interface TransactionListProps {
   transactions: Transaction[];
+  onEdit: (id: string, type: 'earning' | 'expense', amount: number, description: string) => void;
+  onDelete: (id: string) => void;
 }
 
-const TransactionList: React.FC<TransactionListProps> = ({ transactions }) => {
+const TransactionList: React.FC<TransactionListProps> = ({ transactions, onEdit, onDelete }) => {
   return (
     <div className="w-full max-w-sm mt-8">
       <h2 className="text-xl font-bold text-gray-800 mb-4 text-center">আজকের লেনদেন</h2>
@@ -46,6 +48,24 @@ const TransactionList: React.FC<TransactionListProps> = ({ transactions }) => {
               >
                 ৳ {transaction.amount.toFixed(2)}
               </p>
+              <div className="flex space-x-2 ml-4">
+                <button
+                  type="button"
+                  aria-label="Edit transaction"
+                  onClick={() => onEdit(transaction.id, transaction.type, transaction.amount, transaction.description)}
+                  className="text-blue-500 hover:text-blue-700"
+                >
+                  <FaEdit className="w-5 h-5" />
+                </button>
+                <button
+                  type="button"
+                  aria-label="Delete transaction"
+                  onClick={() => onDelete(transaction.id)}
+                  className="text-red-500 hover:text-red-700"
+                >
+                  <FaTrash className="w-5 h-5" />
+                </button>
+              </div>
             </div>
           ))
         )}
