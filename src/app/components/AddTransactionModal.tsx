@@ -11,8 +11,8 @@ interface AddTransactionModalProps {
 export default function AddTransactionModal({ onClose, onAdd }: AddTransactionModalProps) {
   const [type, setType] = useState<'earning' | 'expense'>('earning');
   const [amount, setAmount] = useState('');
-  const [description, setDescription] = useState('');\
-  
+  const [description, setDescription] = useState('');
+
 // Handle form submission
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
