@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { FaUser } from 'react-icons/fa';
+import { FaUser, FaEdit, FaTrash } from 'react-icons/fa';
 
 interface Debt {
   id: string;
@@ -13,15 +13,17 @@ interface Debt {
 
 interface DebtListProps {
   debts: Debt[];
+  onEdit: (id: string, person: string, amount: number, isOwedToUser: boolean) => void;
+  onDelete: (id: string) => void;
 }
 
-const DebtList: React.FC<DebtListProps> = ({ debts }) => {
+const DebtList: React.FC<DebtListProps> = ({ debts, onEdit, onDelete }) => {
   return (
     <div className="w-full max-w-sm mt-8">
-      <h2 className="text-xl font-bold text-gray-800 mb-4 text-center">আজকের দেনা/পাওনা</h2>
+      <h2 className="text-xl font-bold text-gray-800 mb-4 text-center">আজকের পাওনা/দেনা</h2>
       <div className="bg-white rounded-xl shadow-lg p-4 space-y-4 max-h-80 overflow-y-auto">
         {debts.length === 0 ? (
-          <p className="text-gray-500 text-center py-4">কোন দেনা/পাওনা নেই</p>
+          <p className="text-gray-500 text-center py-4">কোন পাওনা/দেনা নেই</p>
         ) : (
           debts.map((debt) => (
             <div
@@ -42,6 +44,24 @@ const DebtList: React.FC<DebtListProps> = ({ debts }) => {
               >
                 ৳ {debt.amount.toFixed(2)}
               </p>
+              <div className="flex space-x-2 ml-4">
+                <button
+                  type="button"
+                  aria-label="Edit debt"
+                  onClick={() => onEdit(debt.id, debt.person, debt.amount, debt.isOwedToUser)}
+                  className="text-blue-500 hover:text-blue-700"
+                >
+                  <FaEdit className="w-5 h-5" />
+                </button>
+                <button
+                  type="button"
+                  aria-label="Delete debt"
+                  onClick={() => onDelete(debt.id)}
+                  className="text-red-500 hover:text-red-700"
+                >
+                  <FaTrash className="w-5 h-5" />
+                </button>
+              </div>
             </div>
           ))
         )}
