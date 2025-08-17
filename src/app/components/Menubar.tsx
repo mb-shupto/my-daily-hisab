@@ -1,5 +1,4 @@
 'use client';
-
 import { FaBars, FaHome, FaMoneyBill, FaUser, FaSignOutAlt } from 'react-icons/fa';
 import Link from 'next/link';
 
@@ -11,11 +10,11 @@ interface MenubarProps {
 export default function Menubar({ isOpen, toggleMenu }: MenubarProps) {
   return (
     <div className="w-full bg-white shadow-lg z-50">
-      <div className="flex items-center justify-between p-8">
+      <div className="flex items-center justify-between p-5">
         <h2 className="text-xl font-bold text-gray-800">Daily Hisab</h2>
         <button
-            type="button"
-            title="Toggle menu"
+          type="button"
+          aria-label="Toggle menu"
           className="md:hidden text-gray-600"
           onClick={toggleMenu}
         >
@@ -49,7 +48,7 @@ export default function Menubar({ isOpen, toggleMenu }: MenubarProps) {
               onClick={toggleMenu}
             >
               <FaUser className="w-5 h-5 text-yellow-500" />
-              <span className="text-gray-700 text-sm">দেনা/পাওনা</span>
+              <span className="text-gray-700 text-sm">পাওনা/দেনা</span>
             </Link>
             <Link
               href="/login"
