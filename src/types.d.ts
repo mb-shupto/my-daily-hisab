@@ -1,38 +1,22 @@
-interface SpeechRecognition extends EventTarget {
-  continuous: boolean;
-  lang: string;
-  interimResults: boolean;
-  start: () => void;
-  stop: () => void;
-  onstart: () => void;
-  onend: () => void;
-  onresult: (event: SpeechRecognitionEvent) => void;
-  onerror: (event: SpeechRecognitionErrorEvent) => void;
+
+interface Category {
+  id: string;
+  name: string;
+  type: 'income' | 'expense';
 }
 
-interface SpeechRecognitionEvent {
-  results: SpeechRecognitionResultList;
+interface Transaction {
+  id: string;
+  type: 'earning' | 'expense';
+  amount: number;
+  description: string;
+  date: string;
 }
 
-interface SpeechRecognitionResultList {
-  [index: number]: SpeechRecognitionResult;
-}
-
-interface SpeechRecognitionResult {
-  [index: number]: SpeechRecognitionAlternative;
-}
-
-interface SpeechRecognitionAlternative {
-  transcript: string;
-}
-
-interface SpeechRecognitionErrorEvent {
-  error: string;
-}
-
-declare global {
-  interface Window {
-    SpeechRecognition: typeof SpeechRecognition;
-    webkitSpeechRecognition: typeof SpeechRecognition;
-  }
+interface Debt {
+  id: string;
+  person: string;
+  amount: number;
+  isOwedToUser: boolean;
+  date: string;
 }
