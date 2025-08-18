@@ -32,7 +32,7 @@ export default function AddTransactionModal({ onClose, onAdd }: AddTransactionMo
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-xl p-6 w-full max-w-sm shadow-lg">
+      <div className="bg-white rounded-xl p-6 w-full max-w-sm shadow-lg text-black">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-bold text-gray-800">নতুন লেনদেন</h2>
           <button
@@ -56,7 +56,7 @@ export default function AddTransactionModal({ onClose, onAdd }: AddTransactionMo
               aria-label="Transaction type"
               value={type}
               onChange={(e) => setType(e.target.value as 'earning' | 'expense')}
-              className="mt-1 block w-full p-2 border border-gray-300 rounded-lg"
+              className="mt-1 block w-full p-2 border border-gray-300 rounded-lg text-black"
             >
               <option value="earning">উপার্জন</option>
               <option value="expense">খরচ</option>
@@ -71,7 +71,7 @@ export default function AddTransactionModal({ onClose, onAdd }: AddTransactionMo
               type="number"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
-              className="mt-1 block w-full p-2 border border-gray-300 rounded-lg"
+              className="mt-1 block w-full p-2 border border-gray-300 rounded-lg text-black"
               placeholder="৳ পরিমাণ লিখুন"
               min="0"
               step="0.01"

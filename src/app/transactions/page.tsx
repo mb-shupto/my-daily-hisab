@@ -3,7 +3,9 @@
 import React, { useState, useEffect } from 'react';
 import Menubar from '../components/Menubar';
 import TransactionList from '../components/TransactionList';
+import AddTransactionModal from '../components/AddTransactionModal';
 import EditTransactionModal from '../components/EditTransactionModal';
+import { FaPlus } from 'react-icons/fa';
 
 interface Transaction {
   id: string;
@@ -17,6 +19,7 @@ export default function TransactionsPage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [isEditTransactionModalOpen, setIsEditTransactionModalOpen] = useState(false);
+  const [isAddTransactionModalOpen, setIsAddTransactionModalOpen] = useState(false);
   const [editTransaction, setEditTransaction] = useState<Transaction | null>(null);
 
   // Load transactions from localStorage on mount
@@ -29,6 +32,22 @@ export default function TransactionsPage() {
   useEffect(() => {
     localStorage.setItem('transactions', JSON.stringify(transactions));
   }, [transactions]);
+
+  const handleAddTransaction = (
+    type: 'earning' | 'expense',
+    amount: number,
+    description: string
+  ) => {
+    const transaction: Transaction = {
+      id: Math.random().toString(36).slice(2),
+      type,
+      amount,
+      description,
+      date: new Date().toISOString(),
+    };
+    setTransactions((prev) => [...prev, transaction]);
+    setIsAddTransactionModalOpen(false);
+  };
 
   const handleEditTransaction = (
     id: string,
@@ -55,6 +74,16 @@ export default function TransactionsPage() {
     <div className="min-h-screen bg-gray-100 flex flex-col">
       <Menubar isOpen={isMenuOpen} toggleMenu={() => setIsMenuOpen(!isMenuOpen)} />
       <div className="flex-1 flex flex-col items-center justify-center p-4">
+        <div className="w-full max-w-4xl flex justify-end mb-4">
+          <button
+            type="button"
+            title="Add Transaction"
+            onClick={() => setIsAddTransactionModalOpen(true)}
+            className="bg-blue-600 text-white rounded-full p-4 shadow-xl transform transition-transform duration-300 hover:scale-110 active:scale-95"
+          >
+            <FaPlus className="w-8 h-8" />
+          </button>
+        </div>
         <TransactionList
           transactions={transactions}
           onEdit={(id, type, amount, description) => {
@@ -63,6 +92,12 @@ export default function TransactionsPage() {
           }}
           onDelete={handleDeleteTransaction}
         />
+        {isAddTransactionModalOpen && (
+          <AddTransactionModal
+            onClose={() => setIsAddTransactionModalOpen(false)}
+            onAdd={handleAddTransaction}
+          />
+        )}
         {isEditTransactionModalOpen && editTransaction && (
           <EditTransactionModal
             transaction={editTransaction}
