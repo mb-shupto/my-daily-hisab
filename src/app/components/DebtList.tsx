@@ -1,8 +1,7 @@
-
 'use client';
 
 import React from 'react';
-import { FaUser, FaEdit, FaTrash } from 'react-icons/fa';
+import { FaEdit, FaTrash } from 'react-icons/fa';
 
 interface Debt {
   id: string;
@@ -18,57 +17,57 @@ interface DebtListProps {
   onDelete: (id: string) => void;
 }
 
-const DebtList: React.FC<DebtListProps> = ({ debts, onEdit, onDelete }) => {
+export default function DebtList({ debts, onEdit, onDelete }: DebtListProps) {
   return (
-    <div className="w-full max-w-sm mt-8">
-      <h2 className="text-xl font-bold text-gray-800 mb-4 text-center">আজকের পাওনা/দেনা</h2>
-      <div className="bg-white rounded-xl shadow-lg p-4 space-y-4 max-h-80 overflow-y-auto">
-        {debts.length === 0 ? (
-          <p className="text-gray-500 text-center py-4">কোন পাওনা/দেনা নেই</p>
-        ) : (
-          debts.map((debt) => (
-            <div
+    <div className="w-full max-w-4xl bg-white rounded-xl shadow-lg p-4">
+      <h2 className="text-xl font-bold text-gray-800 mb-4">পাওনা/দেনার তালিকা</h2>
+      {debts.length === 0 ? (
+        <p className="text-gray-600">কোনো পাওনা/দেনা পাওয়া যায়নি।</p>
+      ) : (
+        <ul className="space-y-2">
+          {debts.map((debt) => (
+            <li
               key={debt.id}
-              className={`flex items-center p-3 rounded-lg shadow-sm transition-all duration-300 transform hover:scale-[1.02] ${
-                debt.isOwedToUser ? 'bg-blue-50' : 'bg-yellow-50'
-              }`}
+              className="flex justify-between items-center p-2 border-b border-gray-200"
             >
-              <div className={`p-2 rounded-full ${debt.isOwedToUser ? 'bg-blue-200' : 'bg-yellow-200'}`}>
-                <FaUser className={`w-5 h-5 ${debt.isOwedToUser ? 'text-blue-600' : 'text-yellow-600'}`} />
+              <div>
+                <p className="text-gray-800 font-medium">
+                  {debt.person}{' '}
+                  <span
+                    className={`${
+                      debt.isOwedToUser ? 'text-green-500' : 'text-red-500'
+                    }`}
+                  >
+                    ({debt.isOwedToUser ? 'পাওনা' : 'দেনা'})
+                  </span>
+                </p>
+                <p className="text-sm text-gray-600">
+                  ৳ {debt.amount.toFixed(2)} |{' '}
+                  {new Date(debt.date).toLocaleDateString('bn-BD')}
+                </p>
               </div>
-              <div className="flex-1 ml-4">
-                <p className="text-lg font-semibold text-gray-800">{debt.person}</p>
-                <p className="text-sm text-gray-500">{new Date(debt.date).toLocaleDateString('bn-BD')}</p>
-              </div>
-              <p
-                className={`text-lg font-bold ${debt.isOwedToUser ? 'text-blue-600' : 'text-yellow-600'}`}
-              >
-                ৳ {debt.amount.toFixed(2)}
-              </p>
-              <div className="flex space-x-2 ml-4">
+              <div className="flex space-x-2">
                 <button
-                  type="button"
-                  aria-label="Edit debt"
-                  onClick={() => onEdit(debt.id, debt.person, debt.amount, debt.isOwedToUser)}
-                  className="text-blue-500 hover:text-blue-700"
+                  onClick={() =>
+                    onEdit(debt.id, debt.person, debt.amount, debt.isOwedToUser)
+                  }
+                  className="text-blue-600 hover:text-blue-800"
+                  aria-label={`Edit debt with ${debt.person}`}
                 >
                   <FaEdit className="w-5 h-5" />
                 </button>
                 <button
-                  type="button"
-                  aria-label="Delete debt"
                   onClick={() => onDelete(debt.id)}
-                  className="text-red-500 hover:text-red-700"
+                  className="text-red-600 hover:text-red-800"
+                  aria-label={`Delete debt with ${debt.person}`}
                 >
                   <FaTrash className="w-5 h-5" />
                 </button>
               </div>
-            </div>
-          ))
-        )}
-      </div>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
-};
-
-export default DebtList;
+}
