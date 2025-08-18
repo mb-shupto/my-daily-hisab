@@ -5,8 +5,6 @@ import Menubar from '../components/Menubar';
 import TransactionList from '../components/TransactionList';
 import EditTransactionModal from '../components/EditTransactionModal';
 
-
-
 interface Transaction {
   id: string;
   type: 'earning' | 'expense';
@@ -20,7 +18,6 @@ export default function TransactionsPage() {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [isEditTransactionModalOpen, setIsEditTransactionModalOpen] = useState(false);
   const [editTransaction, setEditTransaction] = useState<Transaction | null>(null);
-  
 
   // Load transactions from localStorage on mount
   useEffect(() => {
@@ -41,7 +38,9 @@ export default function TransactionsPage() {
   ) => {
     setTransactions((prev) =>
       prev.map((transaction) =>
-        transaction.id === id ? { ...transaction, type, amount, description, date: new Date().toISOString() } : transaction
+        transaction.id === id
+          ? { ...transaction, type, amount, description, date: new Date().toISOString() }
+          : transaction
       )
     );
     setIsEditTransactionModalOpen(false);
@@ -58,7 +57,7 @@ export default function TransactionsPage() {
       <div className="flex-1 flex flex-col items-center justify-center p-4">
         <TransactionList
           transactions={transactions}
-          onEdit={(id: string, type: 'earning' | 'expense', amount:  number, description: string) => {
+          onEdit={(id, type, amount, description) => {
             setEditTransaction({ id, type, amount, description, date: new Date().toISOString() });
             setIsEditTransactionModalOpen(true);
           }}
