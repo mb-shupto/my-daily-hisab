@@ -1,7 +1,8 @@
-"use client";
 
-import React, { useState } from "react";
-import { FaTimes } from "react-icons/fa";
+'use client';
+
+import React, { useState } from 'react';
+import { FaTimes } from 'react-icons/fa';
 
 interface Debt {
   id: string;
@@ -14,19 +15,10 @@ interface Debt {
 interface EditDebtModalProps {
   debt: Debt;
   onClose: () => void;
-  onEdit: (
-    id: string,
-    person: string,
-    amount: number,
-    isOwedToUser: boolean
-  ) => void;
+  onEdit: (id: string, person: string, amount: number, isOwedToUser: boolean) => void;
 }
 
-export default function EditDebtModal({
-  debt,
-  onClose,
-  onEdit,
-}: EditDebtModalProps) {
+export default function EditDebtModal({ debt, onClose, onEdit }: EditDebtModalProps) {
   const [person, setPerson] = useState(debt.person);
   const [amount, setAmount] = useState(debt.amount.toString());
   const [isOwedToUser, setIsOwedToUser] = useState(debt.isOwedToUser);
@@ -44,23 +36,16 @@ export default function EditDebtModal({
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white rounded-xl p-6 w-full max-w-sm shadow-lg">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-bold text-gray-800">
-            পাওনা/দেনা সম্পাদনা
-          </h2>
+          <h2 className="text-xl font-bold text-gray-800">পাওনা/দেনা সম্পাদনা</h2>
           <button
-            type="button"
-            title="Close modal"
-            onClick={onClose}
-            className="text-gray-600 hover:text-gray-800"
-          >
+          type="button" title="Close modal"
+          onClick={onClose} className="text-gray-600 hover:text-gray-800">
             <FaTimes className="w-6 h-6" />
           </button>
         </div>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700">
-              ব্যক্তি
-            </label>
+            <label className="block text-sm font-medium text-gray-700">ব্যক্তি</label>
             <input
               type="text"
               value={person}
@@ -70,9 +55,7 @@ export default function EditDebtModal({
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">
-              পরিমাণ
-            </label>
+            <label className="block text-sm font-medium text-gray-700">পরিমাণ</label>
             <input
               type="number"
               value={amount}
@@ -84,13 +67,12 @@ export default function EditDebtModal({
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">
-              প্রকার
-            </label>
+            <label className="block text-sm font-medium text-gray-700">প্রকার</label>
             <select
+              name="isOwedToUser"
               aria-label="Debt type"
-              value={isOwedToUser ? "owedToUser" : "owedByUser"}
-              onChange={(e) => setIsOwedToUser(e.target.value === "owedToUser")}
+              value={isOwedToUser ? 'owedToUser' : 'owedByUser'}
+              onChange={(e) => setIsOwedToUser(e.target.value === 'owedToUser')}
               className="mt-1 block w-full p-2 border border-gray-300 rounded-lg"
             >
               <option value="owedToUser">পাওনা (আমার কাছে)</option>
