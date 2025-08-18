@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { FaBars, FaTimes, FaChartLine, FaMoneyBill, FaUser, FaListAlt } from 'react-icons/fa';
 import Link from 'next/link';
@@ -8,6 +8,9 @@ import Link from 'next/link';
 export default function LandingPage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const router = useRouter();
+  useEffect(() => {
+    document.title = 'Daily Hisab';
+  }, []);
 
   const handleLogin = () => {
     router.push('/login');
