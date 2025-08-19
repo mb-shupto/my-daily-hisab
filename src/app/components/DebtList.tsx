@@ -1,7 +1,8 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { FaEdit, FaTrash, FaCreditCard } from 'react-icons/fa';
+import DeleteDebtModal from './DeleteDebtModal';
 
 interface Debt {
   id: string;
@@ -20,6 +21,27 @@ interface DebtListProps {
 }
 
 export default function DebtList({ debts, onEdit, onDelete, onPay }: DebtListProps) {
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [selectedDebtId, setSelectedDebtId] = useState<string | null>(null);
+
+  const handleDeleteClick = (id: string) => {
+    setSelectedDebtId(id);
+    setDeleteModalOpen(true);
+  };
+
+  const handleConfirmDelete = () => {
+    if (selectedDebtId) {
+      onDelete(selectedDebtId);
+      setDeleteModalOpen(false);
+      setSelectedDebtId(null);
+    }
+  };
+
+  const handleCloseModal = () => {
+    setDeleteModalOpen(false);
+    setSelectedDebtId(null);
+  };
+
   return (
     <div className="w-full max-w-4xl bg-white rounded-xl shadow-lg p-4">
       <h2 className="text-xl font-bold text-gray-800 mb-4">পাওনা/দেনার তালিকা</h2>
@@ -67,7 +89,7 @@ export default function DebtList({ debts, onEdit, onDelete, onPay }: DebtListPro
                   <FaEdit className="w-5 h-5" />
                 </button>
                 <button
-                  onClick={() => onDelete(debt.id)}
+                  onClick={() => handleDeleteClick(debt.id)}
                   className="text-red-600 hover:text-red-800"
                   aria-label={`Delete debt with ${debt.person}`}
                 >
@@ -78,6 +100,11 @@ export default function DebtList({ debts, onEdit, onDelete, onPay }: DebtListPro
           ))}
         </ul>
       )}
+      <DeleteDebtModal
+        isOpen={deleteModalOpen}
+        onClose={handleCloseModal}
+        onConfirm={handleConfirmDelete}
+      />
     </div>
   );
 }

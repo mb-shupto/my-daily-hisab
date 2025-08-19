@@ -1,7 +1,8 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { FaEdit, FaTrash } from 'react-icons/fa';
+import DeleteTransactionModal from './DeleteTransactionModal';
 
 interface Transaction {
   id: string;
@@ -18,6 +19,27 @@ interface TransactionListProps {
 }
 
 export default function TransactionList({ transactions, onEdit, onDelete }: TransactionListProps) {
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [selectedTransactionId, setSelectedTransactionId] = useState<string | null>(null);
+
+  const handleDeleteClick = (id: string) => {
+    setSelectedTransactionId(id);
+    setDeleteModalOpen(true);
+  };
+
+  const handleConfirmDelete = () => {
+    if (selectedTransactionId) {
+      onDelete(selectedTransactionId);
+      setDeleteModalOpen(false);
+      setSelectedTransactionId(null);
+    }
+  };
+
+  const handleCloseModal = () => {
+    setDeleteModalOpen(false);
+    setSelectedTransactionId(null);
+  };
+
   return (
     <div className="w-full max-w-4xl bg-white rounded-xl shadow-lg p-4">
       <h2 className="text-xl font-bold text-gray-800 mb-4">লেনদেনের তালিকা</h2>
@@ -62,7 +84,7 @@ export default function TransactionList({ transactions, onEdit, onDelete }: Tran
                   <FaEdit className="w-5 h-5" />
                 </button>
                 <button
-                  onClick={() => onDelete(transaction.id)}
+                  onClick={() => handleDeleteClick(transaction.id)}
                   className="text-red-600 hover:text-red-800"
                   aria-label={`Delete transaction ${transaction.description}`}
                 >
@@ -73,6 +95,11 @@ export default function TransactionList({ transactions, onEdit, onDelete }: Tran
           ))}
         </ul>
       )}
+      <DeleteTransactionModal
+        isOpen={deleteModalOpen}
+        onClose={handleCloseModal}
+        onConfirm={handleConfirmDelete}
+      />
     </div>
   );
 }
