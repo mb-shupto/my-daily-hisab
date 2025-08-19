@@ -1,94 +1,54 @@
-'use client';
+import { FaTachometerAlt, FaHandHoldingUsd, FaBoxOpen, FaUser, FaSignOutAlt } from "react-icons/fa";
 
-import React from 'react';
-import { useRouter } from 'next/navigation';
-import { FaTimes, FaBars } from 'react-icons/fa';
-
-interface SidebarProps {
-  isOpen: boolean;
-  toggleSidebar: () => void;
-}
-
-export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
-  const router = useRouter();
-
-  const handleLogout = () => {
-    localStorage.removeItem('auth');
-    router.push('/login');
-  };
-
+export default function Sidebar({ isOpen = true }: { isOpen?: boolean }) {
   return (
-    <>
-      <button
-        onClick={toggleSidebar}
-        className="md:hidden text-gray-600 hover:text-gray-800 p-4 fixed top-0 left-0 z-50"
-        aria-label="Toggle sidebar"
-      >
-        <FaBars className="w-6 h-6" />
-      </button>
-      <div
-        className={`fixed inset-y-0 left-0 bg-white shadow-lg transform ${
-          isOpen ? 'translate-x-0' : '-translate-x-full'
-        } md:w-64 w-3/4 transition-transform duration-300 ease-in-out z-50`}
-      >
-        <div className="p-4 flex justify-between items-center">
-          <h2 className="text-xl font-bold text-gray-800">মেনু</h2>
-          <button
-            onClick={toggleSidebar}
-            className="text-gray-600 hover:text-gray-800"
-            aria-label="Close sidebar"
-          >
-            <FaTimes className="w-6 h-6" />
-          </button>
-        </div>
-        <nav className="mt-4">
-          <ul className="space-y-2">
-            <li>
-              <button
-                onClick={() => router.push('/profile')}
-                className="w-full text-left px-4 py-2 text-gray-600 hover:bg-blue-100 hover:text-blue-600"
-                aria-label="Go to profile"
-              >
-                প্রোফাইল
-              </button>
-            </li>
-            <li>
-              <button
-                onClick={() => router.push('/dashboard')}
-                className="w-full text-left px-4 py-2 text-gray-600 hover:bg-blue-100 hover:text-blue-600"
-                aria-label="Go to dashboard"
-              >
-                ড্যাশবোর্ড
-              </button>
-            </li>
-            <li>
-              <button
-                onClick={() => router.push('/categories')}
-                className="w-full text-left px-4 py-2 text-gray-600 hover:bg-blue-100 hover:text-blue-600"
-                aria-label="Go to category summary"
-              >
-                ক্যাটাগরি সারাংশ
-              </button>
-            </li>
-            <li>
-              <button
-                onClick={handleLogout}
-                className="w-full text-left px-4 py-2 text-gray-600 hover:bg-red-100 hover:text-red-600"
-                aria-label="Logout"
-              >
-                লগআউট
-              </button>
-            </li>
-          </ul>
-        </nav>
+    <aside
+      className={`fixed top-0 left-0 z-40 w-64 h-screen transition-transform ${
+        isOpen ? "translate-x-0" : "-translate-x-full"
+      } bg-gray-50 text-black`}
+      aria-label="Sidebar"
+    >
+      <div className="h-full px-3 py-4 overflow-y-auto">
+        <ul className="space-y-2 font-medium">
+          <li>
+            <a href="#" className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-teal-100 group transition-colors">
+              <FaTachometerAlt className="w-5 h-5 text-teal-500 group-hover:text-teal-700" />
+              <span className="ms-3">ড্যাশবোর্ড</span>
+            </a>
+          </li>
+          <li>
+            <a href="/transactions" className="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-lime-100 group transition-colors">
+              <FaUser className="w-5 h-5 text-lime-500 group-hover:text-lime-700" />
+              <span className="flex-1 ms-3 whitespace-nowrap">লেন-দেন এর হিসাব</span>
+              <span className="inline-flex items-center justify-center px-2 ms-3 text-sm font-medium text-gray-800 bg-gray-100 rounded-full"></span>
+            </a>
+          </li>
+          <li>
+            <a href="/debts" className="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-purple-100 group transition-colors">
+              <FaHandHoldingUsd className="w-5 h-5 text-purple-500 group-hover:text-purple-700" />
+              <span className="flex-1 ms-3 whitespace-nowrap">দেনা-পাওয়ার হিসাব</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" className="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-pink-100 group transition-colors">
+              <FaBoxOpen className="w-5 h-5 text-pink-500 group-hover:text-pink-700" />
+              <span className="flex-1 ms-3 whitespace-nowrap">Products</span>
+            </a>
+          </li>
+          <li>
+            <a href="/profile" className="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-orange-100 group transition-colors">
+              <FaUser className="w-5 h-5 text-orange-500 group-hover:text-orange-700" />
+              <span className="flex-1 ms-3 whitespace-nowrap">প্রোফাইল</span>
+            </a>
+          </li>
+          <li>
+            <a href="/login" className="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-red-100  group transition-colors">
+              <FaSignOutAlt className="w-5 h-5 text-green-500 group-hover:text-green-700" />
+              <span className="flex-1 ms-3 whitespace-nowrap">লগআউট</span>
+            </a>
+          </li>
+        </ul>
       </div>
-      {isOpen && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
-          onClick={toggleSidebar}
-          aria-hidden="true"
-        />
-      )}
-    </>
+    </aside>
   );
 }
