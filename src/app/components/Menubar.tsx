@@ -4,6 +4,7 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { FaTachometerAlt, FaMoneyBill, FaHandHoldingUsd, FaSignOutAlt } from 'react-icons/fa';
 
 interface MenubarProps {
   isOpen: boolean;
@@ -19,25 +20,29 @@ export default function Menubar({ isOpen, toggleMenu }: MenubarProps) {
   };
 
   return (
-    <header className="bg-white shadow p-4">
-      <div className="max-w-4xl mx-auto flex justify-between items-center">
+    <header className="bg-white shadow p-4 w-full mt-0'">
+      <div className="flex justify-between items-center w-full">
         <h1 className="text-xl font-bold text-gray-800">Daily Hisab</h1>
-        <nav className="hidden md:flex space-x-4">
-          <Link href="/dashboard" className="text-gray-600 hover:text-blue-600">
-            ড্যাশবোর্ড
+        <nav className="hidden md:flex flex-1 justify-center items-center gap-8">
+          <Link href="/dashboard" className="flex items-center gap-2 text-gray-600 hover:text-teal-600 px-4 py-2 rounded transition-colors">
+            <FaTachometerAlt className="w-5 h-5" />
+            <span>ড্যাশবোর্ড</span>
           </Link>
-          <Link href="/transactions" className="text-gray-600 hover:text-blue-600">
-            লেনদেন
+          <Link href="/transactions" className="flex items-center gap-2 text-gray-600 hover:text-lime-600 px-4 py-2 rounded transition-colors">
+            <FaMoneyBill className="w-5 h-5" />
+            <span>লেনদেন</span>
           </Link>
-          <Link href="/debts" className="text-gray-600 hover:text-blue-600">
-            পাওনা/দেনা
+          <Link href="/debts" className="flex items-center gap-2 text-gray-600 hover:text-purple-600 px-4 py-2 rounded transition-colors">
+            <FaHandHoldingUsd className="w-5 h-5" />
+            <span>পাওনা/দেনা</span>
           </Link>
           <button
             onClick={handleLogout}
-            className="text-gray-600 hover:text-red-600"
+            className="flex items-center gap-2 text-gray-600 hover:text-red-600 px-4 py-2 rounded transition-colors"
             aria-label="Logout"
           >
-            লগআউট
+            <FaSignOutAlt className="w-5 h-5" />
+            <span>লগআউট</span>
           </button>
         </nav>
         <button
