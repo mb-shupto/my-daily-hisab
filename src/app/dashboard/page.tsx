@@ -7,6 +7,8 @@ import AddDebtModal from "../components/AddDebtModal";
 import EditTransactionModal from "../components/EditTransactionModal";
 import EditDebtModal from "../components/EditDebtModal";
 import Menubar from "../components/Menubar";
+import Sidebar from "../components/Sidebar";
+
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -216,6 +218,8 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col">
+            <Sidebar />
+            <div className="flex-1 sm:ml-64 flex flex-col items-center justify-center p-4">
       <Menubar
         isOpen={isMenuOpen}
         toggleMenu={() => setIsMenuOpen(!isMenuOpen)}
@@ -226,6 +230,8 @@ export default function Dashboard() {
             Daily Hisab
           </h1>
 
+
+          
           <div className="flex flex-col items-center justify-center space-y-4 mb-6">
             <p className="text-sm font-semibold text-gray-500">আজকের লাভ</p>
             <div
@@ -321,6 +327,7 @@ export default function Dashboard() {
             onEdit={handleEditDebt}
           />
         )}
+      </div>
       </div>
     </div>
   );
