@@ -50,8 +50,8 @@ export default function PaymentModal({ amount, onClose, onPaymentComplete }: Pay
         </div>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700">পরিমাণ</label>
-            <p className="mt-1 text-gray-600">৳ {amount.toFixed(2)}</p>
+            <label className="block text-sm font-medium text-black">পরিমাণ</label>
+            <p className="mt-1 text-black">৳ {amount.toFixed(2)}</p>
           </div>
           <div>
             <label htmlFor="gateway" className="block text-sm font-medium text-gray-700">
@@ -63,7 +63,7 @@ export default function PaymentModal({ amount, onClose, onPaymentComplete }: Pay
               aria-label="Payment gateway"
               value={gateway}
               onChange={(e) => setGateway(e.target.value)}
-              className="mt-1 block w-full p-2 border border-gray-300 rounded-lg"
+              className="mt-1 block w-full p-2 border border-gray-300 rounded-lg text-black"
             >
               <option value="" disabled>
                 গেটওয়ে নির্বাচন করুন
