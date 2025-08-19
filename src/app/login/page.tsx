@@ -9,10 +9,12 @@ interface User {
   email: string;
   password: string;
 }
+
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+  const [showAlert, setShowAlert] = useState(false); // New state for alert visibility
   const router = useRouter();
 
   const hashPassword = async (password: string): Promise<string> => {
@@ -27,6 +29,7 @@ export default function LoginPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setMessage('');
+    setShowAlert(false); // Hide any previous alerts
 
     // Validation
     if (!email || !password) {
@@ -46,12 +49,32 @@ export default function LoginPage() {
 
     // Set auth in localStorage
     localStorage.setItem('auth', JSON.stringify({ email: user.email }));
-    setMessage('লগইন সফল হয়েছে!');
-    setTimeout(() => router.push('/dashboard'), 1000);
+
+    // Show the success alert
+    setShowAlert(true);
+
+    // Redirect after a short delay
+    setTimeout(() => {
+      router.push('/dashboard');
+    }, 1000);
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4 relative">
+      {showAlert && (
+        <div 
+          className="fixed top-4 right-4 z-50 flex items-center p-6 mb-4 text-sm text-green-800 border border-green-300 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400 dark:border-green-800" 
+          role="alert"
+        >
+          <svg className="shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+          </svg>
+          <span className="sr-only">Info</span>
+          <div>
+            <span className="font-medium">লগইন সফল হয়েছে!</span> 
+          </div>
+        </div>
+      )}
       <div className="bg-white rounded-xl shadow-lg p-6 w-full max-w-md">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-2xl font-bold text-gray-800">লগইন</h2>
