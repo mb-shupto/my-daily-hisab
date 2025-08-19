@@ -5,6 +5,7 @@ import Menubar from '../components/Menubar';
 import DebtList from '../components/DebtList';
 import AddDebtModal from '../components/AddDebtModal';
 import EditDebtModal from '../components/EditDebtModal';
+import PaymentModal from '../components/PaymentModal';
 import { FaPlus } from 'react-icons/fa';
 
 interface Debt {
@@ -13,6 +14,7 @@ interface Debt {
   amount: number;
   isOwedToUser: boolean;
   date: string;
+  paid?: boolean;
 }
 
 export default function DebtsPage() {
@@ -20,15 +22,15 @@ export default function DebtsPage() {
   const [debts, setDebts] = useState<Debt[]>([]);
   const [isAddDebtModalOpen, setIsAddDebtModalOpen] = useState(false);
   const [isEditDebtModalOpen, setIsEditDebtModalOpen] = useState(false);
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
+  const [selectedDebt, setSelectedDebt] = useState<Debt | null>(null);
   const [editDebt, setEditDebt] = useState<Debt | null>(null);
 
-  // Load debts from localStorage on mount
   useEffect(() => {
     const storedDebts = localStorage.getItem('debts');
     if (storedDebts) setDebts(JSON.parse(storedDebts));
   }, []);
 
-  // Save debts to localStorage whenever they change
   useEffect(() => {
     localStorage.setItem('debts', JSON.stringify(debts));
   }, [debts]);
@@ -61,6 +63,25 @@ export default function DebtsPage() {
     setDebts((prev) => prev.filter((debt) => debt.id !== id));
   };
 
+  const handlePayDebt = (debt: Debt) => {
+    setSelectedDebt(debt);
+    setIsPaymentModalOpen(true);
+  };
+
+  const handlePaymentComplete = (gateway: string) => {
+    if (selectedDebt) {
+      setDebts((prev) =>
+        prev.map((debt) =>
+          debt.id === selectedDebt.id ? { ...debt, paid: true } : debt
+        )
+      );
+      console.log(`Payment completed via ${gateway} for debt ID: ${selectedDebt.id}`);
+      alert(`পেমেন্ট সফল! গেটওয়ে: ${gateway}`);
+    }
+    setIsPaymentModalOpen(false);
+    setSelectedDebt(null);
+  };
+
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col">
       <Menubar isOpen={isMenuOpen} toggleMenu={() => setIsMenuOpen(!isMenuOpen)} />
@@ -82,6 +103,10 @@ export default function DebtsPage() {
             setIsEditDebtModalOpen(true);
           }}
           onDelete={handleDeleteDebt}
+          onPay={(id, amount) => {
+            const debt = debts.find((d) => d.id === id);
+            if (debt) handlePayDebt(debt);
+          }}
         />
         {isAddDebtModalOpen && (
           <AddDebtModal
@@ -97,6 +122,13 @@ export default function DebtsPage() {
               setEditDebt(null);
             }}
             onEdit={handleEditDebt}
+          />
+        )}
+        {isPaymentModalOpen && selectedDebt && (
+          <PaymentModal
+            amount={selectedDebt.amount}
+            onClose={() => setIsPaymentModalOpen(false)}
+            onPaymentComplete={handlePaymentComplete}
           />
         )}
       </div>

@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { FaEdit, FaTrash } from 'react-icons/fa';
+import { FaEdit, FaTrash, FaCreditCard } from 'react-icons/fa';
 
 interface Debt {
   id: string;
@@ -9,15 +9,17 @@ interface Debt {
   amount: number;
   isOwedToUser: boolean;
   date: string;
+  paid?: boolean;
 }
 
 interface DebtListProps {
   debts: Debt[];
   onEdit: (id: string, person: string, amount: number, isOwedToUser: boolean) => void;
   onDelete: (id: string) => void;
+  onPay: (debtId: string, amount: number) => void;
 }
 
-export default function DebtList({ debts, onEdit, onDelete }: DebtListProps) {
+export default function DebtList({ debts, onEdit, onDelete, onPay }: DebtListProps) {
   return (
     <div className="w-full max-w-4xl bg-white rounded-xl shadow-lg p-4">
       <h2 className="text-xl font-bold text-gray-800 mb-4">পাওনা/দেনার তালিকা</h2>
@@ -34,9 +36,7 @@ export default function DebtList({ debts, onEdit, onDelete }: DebtListProps) {
                 <p className="text-gray-800 font-medium">
                   {debt.person}{' '}
                   <span
-                    className={`${
-                      debt.isOwedToUser ? 'text-green-500' : 'text-red-500'
-                    }`}
+                    className={`${debt.isOwedToUser ? 'text-green-500' : 'text-red-500'}`}
                   >
                     ({debt.isOwedToUser ? 'পাওনা' : 'দেনা'})
                   </span>
@@ -44,9 +44,19 @@ export default function DebtList({ debts, onEdit, onDelete }: DebtListProps) {
                 <p className="text-sm text-gray-600">
                   ৳ {debt.amount.toFixed(2)} |{' '}
                   {new Date(debt.date).toLocaleDateString('bn-BD')}
+                  {debt.paid && ' | Paid'}
                 </p>
               </div>
               <div className="flex space-x-2">
+                {!debt.paid && !debt.isOwedToUser && (
+                  <button
+                    onClick={() => onPay(debt.id, debt.amount)}
+                    className="text-green-600 hover:text-green-800"
+                    aria-label={`Pay debt with ${debt.person}`}
+                  >
+                    <FaCreditCard className="w-5 h-5" />
+                  </button>
+                )}
                 <button
                   onClick={() =>
                     onEdit(debt.id, debt.person, debt.amount, debt.isOwedToUser)

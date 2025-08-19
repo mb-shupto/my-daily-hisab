@@ -1,10 +1,3 @@
-
-interface Category {
-  id: string;
-  name: string;
-  type: 'income' | 'expense';
-}
-
 interface Transaction {
   id: string;
   type: 'earning' | 'expense';
@@ -19,4 +12,12 @@ interface Debt {
   amount: number;
   isOwedToUser: boolean;
   date: string;
+  paid?: boolean;
+}
+
+interface User {
+  id: string;
+  username: string;
+  email: string;
+  password: string;
 }
