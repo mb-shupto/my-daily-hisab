@@ -39,7 +39,7 @@ export default function PaymentModal({ amount, onClose, onPaymentComplete }: Pay
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white rounded-xl p-6 w-full max-w-md shadow-lg">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-bold text-gray-800">পেমেন্ট গেটওয়ে নির্বাচন করুন</h2>
+          <h2 className="text-xl font-bold text-black">পেমেন্ট গেটওয়ে নির্বাচন করুন</h2>
           <button
             onClick={onClose}
             className="text-gray-600 hover:text-gray-800"
