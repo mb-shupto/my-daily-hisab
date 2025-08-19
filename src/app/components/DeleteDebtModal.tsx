@@ -9,9 +9,10 @@ interface DeleteDebtModalProps {
 export default function DeleteDebtModal({ isOpen, onClose, onConfirm }: DeleteDebtModalProps) {
   if (!isOpen) return null;
   return (
-    <div className="fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-[calc(100%-1rem)] max-h-full bg-black bg-opacity-40">
+  <div className="fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-[calc(100%-1rem)] max-h-full bg-black/30 backdrop-blur-sm">
+
       <div className="relative p-4 w-full max-w-md max-h-full">
-        <div className="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
+        <div className="relative bg-white rounded-lg shadow-sm">
           <button
             type="button"
             className="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
@@ -37,7 +38,7 @@ export default function DeleteDebtModal({ isOpen, onClose, onConfirm }: DeleteDe
             </button>
             <button
               type="button"
-              className="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+              className="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400  dark:hover:text-white dark:hover:bg-gray-700"
               onClick={onClose}
             >
               না, বাতিল করুন
