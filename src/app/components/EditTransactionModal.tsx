@@ -45,36 +45,36 @@ export default function EditTransactionModal({ transaction, onClose, onEdit }: E
         </div>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700">প্রকার</label>
+            <label className="block text-sm font-medium text-black">প্রকার</label>
             <select
                 aria-label="Transaction type"
               value={type}
               onChange={(e) => setType(e.target.value as 'earning' | 'expense')}
-              className="mt-1 block w-full p-2 border border-gray-300 rounded-lg"
+              className="mt-1 block w-full p-2 border border-gray-300 rounded-lg text-gray-500"
             >
               <option value="earning">উপার্জন</option>
               <option value="expense">খরচ</option>
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">পরিমাণ</label>
+            <label className="block text-sm font-medium text-black">পরিমাণ</label>
             <input
               type="number"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
-              className="mt-1 block w-full p-2 border border-gray-300 rounded-lg"
+              className="mt-1 block w-full p-2 border border-gray-300 rounded-lg text-gray-500"
               placeholder="৳ পরিমাণ লিখুন"
               min="0"
               step="0.01"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">বিবরণ</label>
+            <label className="block text-sm font-medium text-black">বিবরণ</label>
             <input
               type="text"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className="mt-1 block w-full p-2 border border-gray-300 rounded-lg"
+              className="mt-1 block w-full p-2 border border-gray-300 rounded-lg text-gray-500"
               placeholder="বিবরণ লিখুন"
             />
           </div>

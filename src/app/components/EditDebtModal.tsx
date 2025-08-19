@@ -50,7 +50,7 @@ export default function EditDebtModal({ debt, onClose, onEdit }: EditDebtModalPr
               type="text"
               value={person}
               onChange={(e) => setPerson(e.target.value)}
-              className="mt-1 block w-full p-2 border border-gray-300 rounded-lg"
+              className="mt-1 block w-full p-2 border border-gray-300 rounded-lg text-gray-500"
               placeholder="ব্যক্তির নাম লিখুন"
             />
           </div>
@@ -60,7 +60,7 @@ export default function EditDebtModal({ debt, onClose, onEdit }: EditDebtModalPr
               type="number"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
-              className="mt-1 block w-full p-2 border border-gray-300 rounded-lg"
+              className="mt-1 block w-full p-2 border border-gray-300 rounded-lg text-gray-500"
               placeholder="৳ পরিমাণ লিখুন"
               min="0"
               step="0.01"
@@ -73,7 +73,7 @@ export default function EditDebtModal({ debt, onClose, onEdit }: EditDebtModalPr
               aria-label="Debt type"
               value={isOwedToUser ? 'owedToUser' : 'owedByUser'}
               onChange={(e) => setIsOwedToUser(e.target.value === 'owedToUser')}
-              className="mt-1 block w-full p-2 border border-gray-300 rounded-lg"
+              className="mt-1 block w-full p-2 border border-gray-300 rounded-lg text-gray-500"
             >
               <option value="owedToUser">পাওনা (আমার কাছে)</option>
               <option value="owedByUser">দেনা (আমি দিতে)</option>
