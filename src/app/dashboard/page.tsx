@@ -188,41 +188,130 @@ export default function Dashboard() {
   const labels = Object.keys(dailyProfit).sort(
     (a, b) => new Date(a).getTime() - new Date(b).getTime()
   );
-  const data = labels.map((label) => dailyProfit[label]);
+
+  // Calculate daily earnings, expenses, and profit
+  const dailyEarnings: { [date: string]: number } = {};
+  const dailyExpenses: { [date: string]: number } = {};
+  
+  transactions.forEach((transaction) => {
+    const date = new Date(transaction.date).toLocaleDateString('en-CA');
+    if (transaction.type === 'earning') {
+      dailyEarnings[date] = (dailyEarnings[date] || 0) + transaction.amount;
+    } else {
+      dailyExpenses[date] = (dailyExpenses[date] || 0) + transaction.amount;
+    }
+  });
+
+  const earningsData = labels.map((label) => dailyEarnings[label] || 0);
+  const expensesData = labels.map((label) => dailyExpenses[label] || 0);
+  const profitData = labels.map((label) => dailyProfit[label] || 0);
 
   const chartData = {
     labels,
     datasets: [
       {
-        label: "দৈনিক লাভ",
-        data,
-        borderColor: "rgb(75, 192, 192)",
-        backgroundColor: "rgba(75, 192, 192, 0.2)",
-        tension: 0.1,
+        label: "আয়",
+        data: earningsData,
+        borderColor: "rgb(34, 197, 94)",
+        backgroundColor: "rgba(34, 197, 94, 0.1)",
+        tension: 0.4,
+        fill: false,
+        borderWidth: 3,
+      },
+      {
+        label: "খরচ",
+        data: expensesData,
+        borderColor: "rgb(239, 68, 68)",
+        backgroundColor: "rgba(239, 68, 68, 0.1)",
+        tension: 0.4,
+        fill: false,
+        borderWidth: 3,
+      },
+      {
+        label: "নিট লাভ",
+        data: profitData,
+        borderColor: "rgb(59, 130, 246)",
+        backgroundColor: "rgba(59, 130, 246, 0.1)",
+        tension: 0.4,
+        fill: true,
+        borderWidth: 3,
       },
     ],
   };
 
   const chartOptions = {
     responsive: true,
+    interaction: {
+      mode: 'index' as const,
+      intersect: false,
+    },
     plugins: {
       legend: {
         position: "top" as const,
+        labels: {
+          usePointStyle: true,
+          padding: 20,
+          font: {
+            size: 12,
+          },
+        },
       },
       title: {
         display: true,
-        text: "দৈনিক লাভের গ্রাফ",
+        text: "আর্থিক ট্রেন্ড বিশ্লেষণ",
+        font: {
+          size: 16,
+          weight: 'bold' as const,
+        },
+        padding: 20,
+      },
+      tooltip: {
+        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+        titleColor: 'white',
+        bodyColor: 'white',
+        borderColor: 'rgba(255, 255, 255, 0.2)',
+        borderWidth: 1,
+      },
+    },
+    scales: {
+      x: {
+        display: true,
+        title: {
+          display: true,
+          text: 'তারিখ',
+          font: {
+            size: 12,
+            weight: 'bold' as const,
+          },
+        },
+        grid: {
+          color: 'rgba(0, 0, 0, 0.1)',
+        },
+      },
+      y: {
+        display: true,
+        title: {
+          display: true,
+          text: 'টাকার পরিমাণ (৳)',
+          font: {
+            size: 12,
+            weight: 'bold' as const,
+          },
+        },
+        grid: {
+          color: 'rgba(0, 0, 0, 0.1)',
+        },
+        beginAtZero: true,
       },
     },
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 flex flex-col">
       {/* Mobile menu button */}
-      {/* Mobile menu button: always visible, right side, above sidebar */}
-      <div className="md:hidden fixed top-2 right-2 z-50">
+      <div className="md:hidden fixed top-4 right-4 z-50">
         <button
-          className="p-2 rounded-md text-gray-700 bg-white shadow hover:bg-gray-100"
+          className="p-3 rounded-xl text-slate-700 bg-white/90 backdrop-blur-sm shadow-lg hover:bg-white transition-all duration-300 border border-white/20"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           aria-label="Toggle sidebar"
         >
@@ -230,7 +319,7 @@ export default function Dashboard() {
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
-            strokeWidth={1.5}
+            strokeWidth={2}
             stroke="currentColor"
             className="w-6 h-6"
           >
@@ -242,11 +331,12 @@ export default function Dashboard() {
           </svg>
         </button>
       </div>
+      
       {/* Sidebar: hidden on mobile, shrunk on small screens */}
       <div
         className={`fixed top-0 right-0 h-full z-40 transition-transform duration-300 ${
           isMenuOpen ? "translate-x-0" : "translate-x-full"
-        } md:translate-x-0 md:static md:block w-56 md:w-64 bg-white shadow-lg md:shadow-none`}
+        } md:translate-x-0 md:static md:block w-56 md:w-64 bg-white/95 backdrop-blur-sm shadow-xl border-l border-white/20`}
       >
         <Sidebar />
       </div>
@@ -305,11 +395,15 @@ export default function Dashboard() {
           </div>
 
           {/* Graph Section */}
-          <div className="w-full max-w-xl mt-4 sm:mt-8">
-            <h2 className="text-xl font-bold text-gray-800 text-center mb-4">
-              লেনদেনের সারাংশ
-            </h2>
-            <Line data={chartData} options={chartOptions} />
+          <div className="w-full max-w-4xl mt-4 sm:mt-8">
+            <div className="bg-white rounded-xl shadow-lg p-6">
+              <h2 className="text-xl font-bold text-gray-800 text-center mb-6">
+                আর্থিক পরিস্থিতির বিশ্লেষণ
+              </h2>
+              <div className="h-96">
+                <Line data={chartData} options={chartOptions} />
+              </div>
+            </div>
           </div>
 
           {/* Buttons below the graph */}
