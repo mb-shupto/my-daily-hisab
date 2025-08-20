@@ -2,6 +2,7 @@
 'use client';
 
 import React from 'react';
+import NotificationBell from './NotificationBell';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { FaTachometerAlt, FaMoneyBill, FaHandHoldingUsd, FaSignOutAlt } from 'react-icons/fa';
@@ -45,13 +46,16 @@ export default function Menubar({ isOpen, toggleMenu }: MenubarProps) {
             <span>লগআউট</span>
           </button>
         </nav>
-        <button
-          onClick={toggleMenu}
-          className="md:hidden text-gray-600 hover:text-gray-800"
-          aria-label="Toggle menu"
-        >
-          {isOpen ? '✕' : '☰'}
-        </button>
+        <div className="flex items-center gap-4">
+          <NotificationBell />
+          <button
+            onClick={toggleMenu}
+            className="md:hidden text-gray-600 hover:text-gray-800"
+            aria-label="Toggle menu"
+          >
+            {isOpen ? '✕' : '☰'}
+          </button>
+        </div>
       </div>
     </header>
   );
