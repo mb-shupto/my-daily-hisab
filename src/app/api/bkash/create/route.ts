@@ -48,12 +48,14 @@ export async function POST(req: NextRequest) {
     const paymentURL = paymentResponse.data.bkashURL;
 
     return NextResponse.json({ paymentURL });
-  } catch (error: any) {
-  console.error('Payment creation error:', {
-      message: error.message,
-      response: error.response?.data,
-      status: error.response?.status,
-    });
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error('Payment creation error:', {
+        message: error.message,
+      });
+    } else {
+      console.error('Payment creation error:', error);
+    }
     return NextResponse.json({ error: 'Failed to create payment' }, { status: 500 });
   }
 }
