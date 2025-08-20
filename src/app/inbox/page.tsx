@@ -75,7 +75,7 @@ export default function InboxPage() {
         <Menubar isOpen={false} toggleMenu={() => {}} />
         <main className="flex flex-1 min-h-0 h-full">
           {/* Left: Chat List */}
-          <div className="w-80 h-full bg-white rounded-xl shadow-lg flex flex-col border-r border-gray-200">
+          <div className="w-150 h-full bg-white rounded-xl shadow-lg flex flex-col border-r border-gray-200">
             <div className="p-4 pb-0">
               <button
                 className="flex items-center gap-2 mb-4 px-3 py-2 rounded bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm"
@@ -89,10 +89,18 @@ export default function InboxPage() {
                 <button
                   title="নতুন চ্যাট শুরু করুন"
                   className="p-2 rounded-full hover:bg-gray-100"
-                  onClick={() => router.push("/inbox/new")}
+                  onClick={() => setIsModalOpen(true)}
                 >
                   <FaPlus className="w-4 h-4 text-gray-600" />
                 </button>
+                <CreateMessageModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                onSend={(recipient, message) => {
+                  // Add your send logic here
+                  setIsModalOpen(false);
+                }}
+              />
               </div>
               <div className="mb-2">
                 <input
