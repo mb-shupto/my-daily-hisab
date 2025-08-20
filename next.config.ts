@@ -17,6 +17,14 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'icons.veryicon.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'upload.wikimedia.org',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
     ],
   },
 };
