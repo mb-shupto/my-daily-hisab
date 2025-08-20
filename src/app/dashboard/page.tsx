@@ -218,8 +218,24 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col">
-      <Sidebar />
-      <div className="flex-1 sm:ml-64 flex flex-col items-center justify-center p-2 sm:p-4">
+      {/* Mobile menu button */}
+      {/* Mobile menu button: always visible, right side, above sidebar */}
+      <div className="md:hidden fixed top-2 right-2 z-50">
+        <button
+          className="p-2 rounded-md text-gray-700 bg-white shadow hover:bg-gray-100"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-label="Toggle sidebar"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 5.25h16.5m-16.5 6h16.5m-16.5 6h16.5" />
+          </svg>
+        </button>
+      </div>
+      {/* Sidebar: hidden on mobile, shrunk on small screens */}
+      <div className={`fixed top-0 right-0 h-full z-40 transition-transform duration-300 ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'} md:translate-x-0 md:static md:block w-56 md:w-64 bg-white shadow-lg md:shadow-none`}>
+        <Sidebar />
+      </div>
+      <div className="flex-1 md:mr-64 flex flex-col items-center justify-center p-2 sm:p-4">
       <Menubar
         isOpen={isMenuOpen}
         toggleMenu={() => setIsMenuOpen(!isMenuOpen)}
