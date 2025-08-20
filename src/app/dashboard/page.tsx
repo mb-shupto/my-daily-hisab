@@ -218,21 +218,21 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col">
-            <Sidebar />
-            <div className="flex-1 sm:ml-64 flex flex-col items-center justify-center p-4">
+      <Sidebar />
+      <div className="flex-1 sm:ml-64 flex flex-col items-center justify-center p-2 sm:p-4">
       <Menubar
         isOpen={isMenuOpen}
         toggleMenu={() => setIsMenuOpen(!isMenuOpen)}
       />
-      <div className="flex-1 flex flex-col items-center justify-center p-4">
-        <div className="w-full max-w-xl bg-white rounded-xl shadow-lg p-4 transform transition-all duration-300 hover:scale-105">
+      <div className="flex-1 flex flex-col items-center justify-center p-2 sm:p-4">
+        <div className="w-full max-w-xl bg-white rounded-xl shadow-lg p-2 sm:p-4 transform transition-all duration-300 hover:scale-105">
           <h1 className="text-3xl font-bold text-gray-800 text-center mb-4">
             Daily Hisab
           </h1>
 
 
           
-          <div className="flex flex-col items-center justify-center space-y-4 mb-6">
+          <div className="flex flex-col items-center justify-center space-y-2 sm:space-y-4 mb-4 sm:mb-6">
             <p className="text-sm font-semibold text-gray-500">আজকের লাভ</p>
             <div
               className={`text-5xl font-extrabold ${getProfitColor(
@@ -243,7 +243,7 @@ export default function Dashboard() {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 text-center">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4 text-center">
             <div className="bg-green-100 rounded-lg p-4 transform transition-transform duration-300 hover:scale-105">
               <FaMoneyBill className="w-6 h-6 text-green-500 mx-auto mb-2" />
               <p className="text-sm font-medium text-gray-600">উপার্জন</p>
@@ -276,7 +276,7 @@ export default function Dashboard() {
         </div>
 
         {/* Graph Section */}
-        <div className="w-full max-w-xl mt-8">
+  <div className="w-full max-w-xl mt-4 sm:mt-8">
           <h2 className="text-xl font-bold text-gray-800 text-center mb-4">
             লেনদেনের সারাংশ
           </h2>
@@ -284,21 +284,24 @@ export default function Dashboard() {
         </div>
 
         {/* Buttons below the graph */}
-        <div className="flex space-x-10 mt-8">
+        <div className="flex flex-col sm:flex-row gap-2 sm:gap-10 mt-4 sm:mt-8 w-full">
           <button
             type="button"
-            className="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 shadow-lg shadow-teal-500/50 dark:shadow-lg dark:shadow-teal-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+            className="w-full sm:w-auto text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 shadow-lg shadow-teal-500/50 dark:shadow-lg dark:shadow-teal-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2 sm:mb-0"
             onClick={() => setIsTransactionModalOpen(true)}
             title="Add Transaction"
           >
             লেন-দেন যোগ করুন
           </button>
 
-          <button type="button" className="text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-          onClick={() => setIsDebtModalOpen(true)}
-          title="Add Debt"
+          <button
+            type="button"
+            className="w-full sm:w-auto text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+            onClick={() => setIsDebtModalOpen(true)}
+            title="Add Debt"
           >
-          দেনা-পাওনা যোগ করুন</button>
+            দেনা-পাওনা যোগ করুন
+          </button>
         </div>
 
         {isTransactionModalOpen && (
