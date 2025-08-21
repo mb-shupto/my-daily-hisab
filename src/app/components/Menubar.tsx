@@ -22,9 +22,9 @@ export default function Menubar({ isOpen, toggleMenu }: MenubarProps) {
 
   return (
     <header className="bg-white shadow p-4 w-250 mt-0">
-      <div className="flex  items-center w-200">
+      <div className="flex items-center justify-between w-full">
         <h1 className="text-xl font-bold text-gray-800">Daily Hisab</h1>
-        <nav className="hidden md:flex flex-1 justify-center items-center gap-8">
+        <nav className="hidden md:flex flex-1 justify-center items-center gap-2 lg:gap-4 mx-2">
           <Link href="/dashboard" className="flex items-center gap-2 text-gray-600 hover:text-teal-600 px-4 py-2 rounded transition-colors">
             <FaTachometerAlt className="w-5 h-5" />
             <span>ড্যাশবোর্ড</span>
@@ -46,7 +46,7 @@ export default function Menubar({ isOpen, toggleMenu }: MenubarProps) {
             <span>লগআউট</span>
           </button>
         </nav>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 lg:gap-4 flex-shrink-0">
           {/* Notification Bell - always visible */}
           <div className="relative">
             <NotificationBell />

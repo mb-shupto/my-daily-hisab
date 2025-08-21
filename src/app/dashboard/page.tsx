@@ -332,7 +332,7 @@ export default function Dashboard() {
           </svg>
         </button>
       </div>
-      
+
       {/* Sidebar: hidden on mobile, shrunk on small screens */}
       <div
         className={`fixed top-0 right-0 h-full z-40 transition-transform duration-300 ${
@@ -341,13 +341,13 @@ export default function Dashboard() {
       >
         <Sidebar />
       </div>
-      <div className="flex-1 md:mr-64 flex flex-col items-center justify-center p-2 sm:p-4 w-400">
+      <main className="flex-1 md:mr-64 flex flex-col items-center justify-center p-2 sm:p-4 min-w-0 w-full">
         <Menubar
           isOpen={isMenuOpen}
           toggleMenu={() => setIsMenuOpen(!isMenuOpen)}
         />
-        <div className="flex-1 flex flex-col items-center justify-center p-2 sm:p-4 w-200">
-          <div className="w-full max-w-xl bg-white rounded-xl shadow-lg p-2 sm:p-4 transform transition-all duration-300 hover:scale-100">
+        <section className="flex-1 flex flex-col items-center justify-center p-2 sm:p-4 w-full max-w-4xl">
+          <div className="w-full bg-white rounded-xl shadow-lg p-2 sm:p-4 transform transition-all duration-300 hover:scale-100">
             <h1 className="text-3xl font-bold text-gray-800 text-center mb-4">
               Daily Hisab
             </h1>
@@ -363,37 +363,37 @@ export default function Dashboard() {
               </div>
             </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4 text-center">
-            <div className="bg-green-100 rounded-lg p-4 transform transition-transform duration-300 hover:scale-105">
-              <FaMoneyBill className="w-6 h-6 text-green-500 mx-auto mb-2" />
-              <p className="text-sm font-medium text-gray-600">উপার্জন</p>
-              <p className="text-lg font-bold text-green-600">
-                ৳ {todayEarnings.toFixed(2)}
-              </p>
-            </div>
-            <div className="bg-red-100 rounded-lg p-4 transform transition-transform duration-300 hover:scale-105">
-              <FaShoppingBag className="w-6 h-6 text-red-500 mx-auto mb-2" />
-              <p className="text-sm font-medium text-gray-600">খরচ</p>
-              <p className="text-lg font-bold text-red-600">
-                ৳ {todayExpenses.toFixed(2)}
-              </p>
-            </div>
-            <div className="bg-blue-100 rounded-lg p-4 transform transition-transform duration-300 hover:scale-105">
-              <FaUser className="w-6 h-6 text-blue-500 mx-auto mb-2" />
-              <p className="text-sm font-medium text-gray-600">পাওনা</p>
-              <p className="text-lg font-bold text-blue-600">
-                ৳ {totalOwedToUser.toFixed(2)}
-              </p>
-            </div>
-            <div className="bg-yellow-100 rounded-lg p-4 transform transition-transform duration-300 hover:scale-105">
-              <FaUser className="w-6 h-6 text-yellow-500 mx-auto mb-2" />
-              <p className="text-sm font-medium text-gray-600">দেনা</p>
-              <p className="text-lg font-bold text-yellow-600">
-                ৳ {totalOwedByUser.toFixed(2)}
-              </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4 text-center">
+              <div className="bg-green-100 rounded-lg p-4 transform transition-transform duration-300 hover:scale-105">
+                <FaMoneyBill className="w-6 h-6 text-green-500 mx-auto mb-2" />
+                <p className="text-sm font-medium text-gray-600">উপার্জন</p>
+                <p className="text-lg font-bold text-green-600">
+                  ৳ {todayEarnings.toFixed(2)}
+                </p>
+              </div>
+              <div className="bg-red-100 rounded-lg p-4 transform transition-transform duration-300 hover:scale-105">
+                <FaShoppingBag className="w-6 h-6 text-red-500 mx-auto mb-2" />
+                <p className="text-sm font-medium text-gray-600">খরচ</p>
+                <p className="text-lg font-bold text-red-600">
+                  ৳ {todayExpenses.toFixed(2)}
+                </p>
+              </div>
+              <div className="bg-blue-100 rounded-lg p-4 transform transition-transform duration-300 hover:scale-105">
+                <FaUser className="w-6 h-6 text-blue-500 mx-auto mb-2" />
+                <p className="text-sm font-medium text-gray-600">পাওনা</p>
+                <p className="text-lg font-bold text-blue-600">
+                  ৳ {totalOwedToUser.toFixed(2)}
+                </p>
+              </div>
+              <div className="bg-yellow-100 rounded-lg p-4 transform transition-transform duration-300 hover:scale-105">
+                <FaUser className="w-6 h-6 text-yellow-500 mx-auto mb-2" />
+                <p className="text-sm font-medium text-gray-600">দেনা</p>
+                <p className="text-lg font-bold text-yellow-600">
+                  ৳ {totalOwedByUser.toFixed(2)}
+                </p>
+              </div>
             </div>
           </div>
-        </div>
 
           {/* Graph Section */}
           <div className="w-full max-w-xl mt-4 sm:mt-8">
@@ -403,55 +403,55 @@ export default function Dashboard() {
             <Line data={chartData} options={chartOptions} />
           </div>
 
-        {/* Buttons below the graph */}
-        <div className="flex flex-col sm:flex-row gap-2 sm:gap-10 mt-4 sm:mt-8 w-full">
-          <button
-            type="button"
-            className="w-full sm:w-auto text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 shadow-lg shadow-teal-500/50 dark:shadow-lg dark:shadow-teal-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2 sm:mb-0"
-            onClick={() => setIsTransactionModalOpen(true)}
-            title="Add Transaction"
-          >
-            লেন-দেন যোগ করুন
-          </button>
+          {/* Buttons below the graph */}
+          <div className="flex flex-col sm:flex-row gap-2 sm:gap-10 mt-4 sm:mt-8 w-100">
+            <button
+              type="button"
+              className="w-full sm:w-auto text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 shadow-lg shadow-teal-500/50 dark:shadow-lg dark:shadow-teal-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2 sm:mb-0"
+              onClick={() => setIsTransactionModalOpen(true)}
+              title="Add Transaction"
+            >
+              লেন-দেন যোগ করুন
+            </button>
 
-          <button
-            type="button"
-            className="w-full sm:w-auto text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-            onClick={() => setIsDebtModalOpen(true)}
-            title="Add Debt"
-          >
-            দেনা-পাওনা যোগ করুন
-          </button>
-        </div>
+            <button
+              type="button"
+              className="w-full sm:w-auto text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+              onClick={() => setIsDebtModalOpen(true)}
+              title="Add Debt"
+            >
+              দেনা-পাওনা যোগ করুন
+            </button>
+          </div>
 
-        {isTransactionModalOpen && (
-          <AddTransactionModal
-            onClose={() => setIsTransactionModalOpen(false)}
-            onAdd={handleAddTransaction}
-          />
-        )}
-        {isDebtModalOpen && (
-          <AddDebtModal
-            onClose={() => setIsDebtModalOpen(false)}
-            onAdd={handleAddDebt}
-          />
-        )}
-        {isEditTransactionModalOpen && editTransaction && (
-          <EditTransactionModal
-            transaction={editTransaction}
-            onClose={() => setIsEditTransactionModalOpen(false)}
-            onEdit={handleEditTransaction}
-          />
-        )}
-        {isEditDebtModalOpen && editDebt && (
-          <EditDebtModal
-            debt={editDebt}
-            onClose={() => setIsEditDebtModalOpen(false)}
-            onEdit={handleEditDebt}
-          />
-        )}
-      </div>
-      </div>
+          {isTransactionModalOpen && (
+            <AddTransactionModal
+              onClose={() => setIsTransactionModalOpen(false)}
+              onAdd={handleAddTransaction}
+            />
+          )}
+          {isDebtModalOpen && (
+            <AddDebtModal
+              onClose={() => setIsDebtModalOpen(false)}
+              onAdd={handleAddDebt}
+            />
+          )}
+          {isEditTransactionModalOpen && editTransaction && (
+            <EditTransactionModal
+              transaction={editTransaction}
+              onClose={() => setIsEditTransactionModalOpen(false)}
+              onEdit={handleEditTransaction}
+            />
+          )}
+          {isEditDebtModalOpen && editDebt && (
+            <EditDebtModal
+              debt={editDebt}
+              onClose={() => setIsEditDebtModalOpen(false)}
+              onEdit={handleEditDebt}
+            />
+          )}
+        </section>
+      </main>
     </div>
   );
 }
