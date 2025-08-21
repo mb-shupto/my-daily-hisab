@@ -8,6 +8,7 @@ import EditTransactionModal from "../components/EditTransactionModal";
 import EditDebtModal from "../components/EditDebtModal";
 import Menubar from "../components/Menubar";
 import Sidebar from "../components/Sidebar";
+import NotificationBell from "../components/NotificationBell";  
 
 import { Line } from "react-chartjs-2";
 import {
@@ -340,12 +341,12 @@ export default function Dashboard() {
       >
         <Sidebar />
       </div>
-      <div className="flex-1 md:mr-64 flex flex-col items-center justify-center p-2 sm:p-4 w-400">
+      <div className="flex-1 md:mr-64 flex flex-col items-center justify-center p-2 sm:p-4  w-400">
         <Menubar
           isOpen={isMenuOpen}
-          toggleMenu={() => setIsMenuOpen(!isMenuOpen)}
-        />
-        <div className="flex-1 flex flex-col items-center justify-center p-2 sm:p-4 w-200">
+          toggleMenu={() => setIsMenuOpen(!isMenuOpen)}  />
+        
+        <div className="flex-1 flex flex-col items-center justify-center p-2 sm:p-4 w-full max-w-4xl">
           <div className="w-full max-w-xl bg-white rounded-xl shadow-lg p-2 sm:p-4 transform transition-all duration-300 hover:scale-100">
             <h1 className="text-3xl font-bold text-gray-800 text-center mb-4">
               Daily Hisab
