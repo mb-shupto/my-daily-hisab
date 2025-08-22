@@ -4,6 +4,7 @@ import {
   FaUser,
   FaSignOutAlt,
   FaInbox,
+    FaChartBar,
 } from "react-icons/fa";
 
 export default function Sidebar({ isOpen = true }: { isOpen?: boolean }) {
@@ -37,6 +38,15 @@ export default function Sidebar({ isOpen = true }: { isOpen?: boolean }) {
               <span className="inline-flex items-center justify-center px-2 ms-3 text-sm font-medium text-gray-800 bg-gray-100 rounded-full"></span>
             </a>
           </li>
+            <li>
+              <a
+                href="/analytics"
+                className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-cyan-100 group transition-colors"
+              >
+                <FaChartBar className="w-5 h-5 text-cyan-500 group-hover:text-cyan-700" />
+                <span className="flex-1 ms-3 whitespace-nowrap">অ্যানালিটিক্স</span>
+              </a>
+            </li>
           <li>
             <a
               href="/debts"
