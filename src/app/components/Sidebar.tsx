@@ -10,12 +10,12 @@ import {
 export default function Sidebar({ isOpen = true }: { isOpen?: boolean }) {
   return (
     <aside
-      className={`fixed top-0 left-0 z-40 w-64 h-screen transition-transform ${
+      className={`fixed top-0 left-0 z-40 w-64 h-250 min-h-screen transition-transform ${
         isOpen ? "translate-x-0" : "-translate-x-full"
-      } bg-gray-50 text-black`}
+      } bg-gray-50 text-black flex flex-col`}
       aria-label="Sidebar"
     >
-      <div className="h-full px-3 py-4 overflow-y-auto">
+      <div className="flex-1 px-3 py-4 overflow-y-auto flex flex-col justify-between h-screen min-h-screen">
         <ul className="space-y-2 font-medium">
           <li>
             <a
