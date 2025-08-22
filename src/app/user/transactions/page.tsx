@@ -1,10 +1,10 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Menubar from '../components/Menubar';
-import TransactionList from '../components/TransactionList';
-import AddTransactionModal from '../components/AddTransactionModal';
-import EditTransactionModal from '../components/EditTransactionModal';
+import Menubar from '../../components/Menubar';
+import TransactionList from '../../components/TransactionList';
+import AddTransactionModal from '../../components/AddTransactionModal';
+import EditTransactionModal from '../../components/EditTransactionModal';
 import { FaPlus } from 'react-icons/fa';
 
 interface Transaction {

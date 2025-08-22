@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Menubar from '../components/Menubar';
-import EditProfileModal from '../components/EditProfilleModal';
+import Menubar from '../../components/Menubar';
+import EditProfileModal from '../../components/EditProfilleModal';
 interface User {
   id: string;
   username: string;

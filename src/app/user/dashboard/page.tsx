@@ -2,13 +2,13 @@
 
 import React, { useState, useEffect } from "react";
 import { FaMoneyBill, FaShoppingBag, FaUser } from "react-icons/fa";
-import AddTransactionModal from "../components/AddTransactionModal";
-import AddDebtModal from "../components/AddDebtModal";
-import EditTransactionModal from "../components/EditTransactionModal";
-import EditDebtModal from "../components/EditDebtModal";
-import Menubar from "../components/Menubar";
-import Sidebar from "../components/Sidebar";
-import NotificationBell from "../components/NotificationBell";  
+import AddTransactionModal from "../../components/AddTransactionModal";
+import AddDebtModal from "../../components/AddDebtModal";
+import EditTransactionModal from "../../components/EditTransactionModal";
+import EditDebtModal from "../../components/EditDebtModal";
+import Menubar from "../../components/Menubar";
+import Sidebar from "../../components/Sidebar";
+import NotificationBell from "../../components/NotificationBell";  
 
 import { Line } from "react-chartjs-2";
 import {

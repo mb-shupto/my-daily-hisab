@@ -1,11 +1,11 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Menubar from '../components/Menubar';
-import DebtList from '../components/DebtList';
-import AddDebtModal from '../components/AddDebtModal';
-import EditDebtModal from '../components/EditDebtModal';
-import PaymentModal from '../components/PaymentModal';
+import Menubar from '../../components/Menubar';
+import DebtList from '../../components/DebtList';
+import AddDebtModal from '../../components/AddDebtModal';
+import EditDebtModal from '../../components/EditDebtModal';
+import PaymentModal from '../../components/PaymentModal';
 import { FaPlus } from 'react-icons/fa';
 
 interface Debt {

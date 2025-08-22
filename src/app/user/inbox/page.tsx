@@ -2,8 +2,8 @@
 import React from "react";
 import { FaPlus, FaArrowLeft } from "react-icons/fa";
 import Image from "next/image";
-import Menubar from "../components/Menubar";
-import CreateMessageModal from "../components/CreateMessageModal";
+import Menubar from "../../components/Menubar";
+import CreateMessageModal from "../../components/CreateMessageModal";
 import { useRouter } from "next/navigation";
 
 export default function InboxPage() {
