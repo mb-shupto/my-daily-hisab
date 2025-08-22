@@ -1,23 +1,30 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { FaBars, FaTimes, FaChartLine, FaMoneyBill, FaUser, FaListAlt } from 'react-icons/fa';
-import Link from 'next/link';
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import {
+  FaBars,
+  FaTimes,
+  FaChartLine,
+  FaMoneyBill,
+  FaUser,
+  FaListAlt,
+} from "react-icons/fa";
+import Link from "next/link";
 
 export default function LandingPage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const router = useRouter();
   useEffect(() => {
-    document.title = 'Daily Hisab';
+    document.title = "Daily Hisab";
   }, []);
 
   const handleLogin = () => {
-    router.push('/login');
+    router.push("/login");
   };
 
   const handleRegister = () => {
-    router.push('/signup');
+    router.push("/signup");
   };
 
   return (
@@ -56,24 +63,37 @@ export default function LandingPage() {
             className="md:hidden text-gray-600 hover:text-gray-800"
             aria-label="Toggle menu"
           >
-            {isMenuOpen ? <FaTimes className="w-6 h-6" /> : <FaBars className="w-6 h-6" />}
+            {isMenuOpen ? (
+              <FaTimes className="w-6 h-6" />
+            ) : (
+              <FaBars className="w-6 h-6" />
+            )}
           </button>
         </div>
         {isMenuOpen && (
           <nav className="md:hidden mt-4">
             <ul className="space-y-2">
               <li>
-                <Link href="/" className="block text-gray-600 hover:text-blue-600 p-2">
+                <Link
+                  href="/"
+                  className="block text-gray-600 hover:text-blue-600 p-2"
+                >
                   হোম
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="block text-gray-600 hover:text-blue-600 p-2">
+                <Link
+                  href="/about"
+                  className="block text-gray-600 hover:text-blue-600 p-2"
+                >
                   আমাদের সম্পর্কে
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="block text-gray-600 hover:text-blue-600 p-2">
+                <Link
+                  href="/contact"
+                  className="block text-gray-600 hover:text-blue-600 p-2"
+                >
                   যোগাযোগ
                 </Link>
               </li>
@@ -107,7 +127,8 @@ export default function LandingPage() {
             Daily Hisab-এ স্বাগতম
           </h2>
           <p className="text-lg md:text-xl mb-6">
-            আপনার দৈনন্দিন আর্থিক হিসাব সহজে ও সুন্দরভাবে পরিচালনা করুন। আজই নিবন্ধন করুন এবং আপনার আর্থিক নিয়ন্ত্রণ নিন!
+            আপনার দৈনন্দিন আর্থিক হিসাব সহজে ও সুন্দরভাবে পরিচালনা করুন। আজই
+            নিবন্ধন করুন এবং আপনার আর্থিক নিয়ন্ত্রণ নিন!
           </p>
           <div className="flex justify-center space-x-4">
             <button
@@ -163,12 +184,13 @@ export default function LandingPage() {
               </p>
             </div>
             <div className="bg-white rounded-lg shadow-lg p-6 transform transition-all duration-300 hover:scale-105">
-              <FaListAlt className="w-12 h-12 text-purple-500 mx-auto mb-4" />
+              <FaMoneyBill className="w-12 h-12 text-indigo-500 mx-auto mb-4" />
               <h4 className="text-xl font-semibold text-gray-800 mb-2">
-                ক্যাটাগরি সারাংশ
+                পেমেন্ট গেটওয়ে
               </h4>
               <p className="text-gray-600">
-                কাস্টমাইজড ক্যাটাগরি তৈরি করুন এবং লেনদেনের সারাংশ দেখুন।
+                সহজেই টাকা পাঠান এবং অনুরোধ করুন, বিকাশ/নগদ/রকেট সহ বিভিন্ন
+                পেমেন্ট গেটওয়ে ব্যবহার করুন।
               </p>
             </div>
           </div>
