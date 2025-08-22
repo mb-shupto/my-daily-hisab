@@ -23,6 +23,10 @@ export default function LandingPage() {
     router.push("/login");
   };
 
+  const handleAdminLogin = () => {
+    router.push("/admin/login");
+  };
+
   const handleRegister = () => {
     router.push("/signup");
   };
@@ -56,6 +60,13 @@ export default function LandingPage() {
               aria-label="Register"
             >
               নিবন্ধন
+            </button>
+            <button
+              onClick={handleAdminLogin}
+              className="text-red-600 hover:text-red-800 font-bold border border-red-600 px-3 py-1 rounded transition-colors"
+              aria-label="Login as Admin"
+            >
+              Login as Admin
             </button>
           </nav>
           <button
@@ -115,6 +126,15 @@ export default function LandingPage() {
                   নিবন্ধন
                 </button>
               </li>
+              <li>
+                <button
+                  onClick={handleAdminLogin}
+                  className="block text-red-600 hover:text-red-800 p-2 w-full text-left font-bold border border-red-600 rounded transition-colors"
+                  aria-label="Login as Admin"
+                >
+                  Login as Admin
+                </button>
+              </li>
             </ul>
           </nav>
         )}
@@ -144,6 +164,13 @@ export default function LandingPage() {
               aria-label="Register"
             >
               নিবন্ধন
+            </button>
+            <button
+              onClick={handleAdminLogin}
+              className="bg-red-600 text-white font-semibold py-2 px-6 rounded-lg hover:bg-red-700 transition-colors duration-300 border border-red-700"
+              aria-label="Login as Admin"
+            >
+              Login as Admin
             </button>
           </div>
         </div>
